@@ -18,7 +18,7 @@
                 <input disabled type="text" id="errors" class="form-control sb-1" placeholder="0">
             </div>
             <div class="inputset">
-                <label for="accuracy">Accuracy</label>
+                <label for="accuracy">% Accuracy</label>
                 <input disabled type="text" id="accuracy" class="form-control sb-1" placeholder="0%">
             </div>
             <div class="inputset">
@@ -31,6 +31,7 @@
             </div>
         </div>
         <div id="dummycontent">
+            <p id="hide"> Click on the box below to start the test</p>
         </div>
         <div id="test_div">
             <textarea type="text" id="testinput" onfocus="startGame()" class="form-control mb-3"
@@ -38,10 +39,10 @@
         </textarea>
         </div>
         <div id="reset">
-            <!-- <button class="restart_btn" onclick="resetValues()">Restart Test</button> -->
+            <button visible='hidden' class="reset" onclick="resetGame()"> Reset</button>
         </div>
         <div id="timer">
-            <input type="text" id="timertext" class="form-control mb-3" placeholder="60">
+            <input disabled type="text" id="timertext" class="form-control mb-6" placeholder="60">
 
         </div>
     </div>

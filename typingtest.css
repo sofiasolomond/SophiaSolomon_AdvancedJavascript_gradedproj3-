@@ -3,10 +3,11 @@ body {
 }
  
 #grid {
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
     padding: 20px;
-    
+    align: center;
+
 }
 p {
     color: blue;
@@ -37,7 +38,7 @@ p {
     box-shadow: 0px 0px 2px 2px rgb(115, 119, 119);
     border: 0.5px solid rgb(255, 153, 0);
     padding: 10px;
-    width: 10%;
+    width: 15%;
     background-color: #c7ee96;
 
 }
@@ -47,8 +48,9 @@ p {
 
 }
 #dummycontent {
-    max-width: 90%;
-    margin: 20px 20px ; 
+    max-width: 80%;
+    margin: 0, auto;
+     
 
 }
 
@@ -58,14 +60,12 @@ p {
     padding: 20px;
     text-align: justify;
     color: brown;
-    margin: 20px 20px ; 
 
 }
 #dummycontent > div {
     float: center;
     font-size: 16px;
     padding: 20px;
-    margin: 20px 20px ;
 
 }
 
@@ -73,7 +73,6 @@ p {
 
     float: center;
     display: inline;
-    padding: 20px;
 
 
 }
@@ -86,7 +85,7 @@ p {
     display: inline-block;
     height: 250;
     padding: 20px;
-    max-width: 90%;
+    max-width: 80%;
 
 
 }
@@ -108,22 +107,26 @@ p {
 
 }
 
+#reset {
 
+display: none;
+    float: center;
+
+}
 
 #timer {
     float: center;
-    display: inline;
+    align-items: center;
+    width: 80%;
 }
 #timer > input{
-    border: 0.5px solid rgb(255, 60, 0);
-    text-align: left;
-    font-size: 16px;
-    box-shadow: 0px 0px 2px 2px rgb(230, 39, 5);
-    margin-right: 10px; 
-    max-width: 20%;
-    height:40px;
-    display: inline-block;
-    background-color: #ada314;
-    padding: 10px 10x;
+    border: 1px solid rgb(243, 60, 4);
+    text-align: center;
+    margin: 0 auto;
+    font-size: 40px;
+    box-shadow: 2px rgb(8, 194, 147);
+    max-width: 10%;
+    height:80px;
+    background-color: #faea08;
 
 }
