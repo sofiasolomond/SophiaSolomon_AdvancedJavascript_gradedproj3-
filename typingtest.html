@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>TYPING TEST</title>
+    <link rel="stylesheet" type="text/css" href="typingtest.css">
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<body>
+    <div id="grid">
+        <p> TEST YOUR TYPING SPEED </p>
+        <div class="score">
+            <div class="inputset">
+                <label for="errors">Errors</label>
+                <input disabled type="text" id="errors" class="form-control sb-1" placeholder="0">
+            </div>
+            <div class="inputset">
+                <label for="accuracy">Accuracy</label>
+                <input disabled type="text" id="accuracy" class="form-control sb-1" placeholder="0%">
+            </div>
+            <div class="inputset">
+                <label for="wpm">WPM</label>
+                <input disabled type="text" id="wpm" class="form-control sb-3" placeholder="0">
+            </div>
+            <div class="inputset">
+                <label for="cpm">CPM</label>
+                <input disabled type="text" id="cpm" class="form-control sb-3" placeholder="0">
+            </div>
+        </div>
+        <div id="dummycontent">
+        </div>
+        <div id="test_div">
+            <textarea type="text" id="testinput" onfocus="startGame()" class="form-control mb-3"
+                placeholder="Start typing">
+        </textarea>
+        </div>
+        <div id="reset">
+            <!-- <button class="restart_btn" onclick="resetValues()">Restart Test</button> -->
+        </div>
+        <div id="timer">
+            <input type="text" id="timertext" class="form-control mb-3" placeholder="60">
+
+        </div>
+    </div>
+    <script src="typingtest.js"></script>
+
+</body>
+
+</html>
