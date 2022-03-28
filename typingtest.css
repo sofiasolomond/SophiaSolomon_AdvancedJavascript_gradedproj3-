@@ -50,14 +50,11 @@ p {
 #dummycontent {
     max-width: 80%;
     margin: 0, auto;
-     
-
 }
 
 #dummycontent > p {
     float: center;
     font-size: 16px;
-    padding: 20px;
     text-align: justify;
     color: brown;
 
@@ -66,7 +63,6 @@ p {
     float: center;
     font-size: 16px;
     padding: 20px;
-
 }
 
 #test_div {
@@ -125,7 +121,7 @@ display: none;
     margin: 0 auto;
     font-size: 40px;
     box-shadow: 2px rgb(8, 194, 147);
-    max-width: 10%;
+    max-width: 20%;
     height:80px;
     background-color: #faea08;
 

@@ -5,17 +5,15 @@ let current_test_content = 0;
 let scoreword = 0
 let scorecharacter = 0
 let errorcount = 0
-    // local variables used
-    let wordcount = 0
-    let charactercount = 0
-    let joinwords = "" 
+let wordcount = 0
+let charactercount = 0
+let joinwords = ""
 
 // Get the values of the DOM Elements
 let dummytext_div = document.getElementById('dummycontent')
 let input_test_area = document.getElementById('testinput')
 let wordcounttext = document.getElementById('wpm')
 let charactercounttext = document.getElementById('cpm')
-
 let accuracytext = document.getElementById('accuracy')
 let error = document.getElementById('errors')
 let timer_text = document.getElementById('timertext')
@@ -23,6 +21,7 @@ let hide_text = document.getElementById('hide')
 let reset_btn = document.getElementById('reset')
 let flag = true
 var listofwords
+
 //Content of the Dummy text that will be dispalyed for typing test
 let test_content = [
     "The Avengers are a fictional team of super heroes and the protagonists of the Marvel Cinematic Universe media franchise, based on the Marvel Comics team of the same name created by Stan Lee and Jack Kirby in 1963. Founded by S.H.I.E.L.D. Director Nick Fury, the team is a United States-based organization composed primarily of superpowered and gifted individuals, described as Earth's Mightiest Heroes, who are committed to the worlds protection from a variety of threats. The Avengers are depicted as operating in the state of New York; originally operating from the Avengers Tower in Midtown Manhattan and subsequently from the Avengers Compound in Upstate New York.",
@@ -34,7 +33,6 @@ let test_content = [
 
 // This function will load the dummy text for typing
 function updateTestContent() {
-    
     const previous_content = document.querySelectorAll('.testcontent');
     previous_content.forEach(element => {
         dummytext_div.removeChild(element)
@@ -53,7 +51,6 @@ function updateTestContent() {
         current_test_content = 0
     reset_btn.style.display = 'block'
     listofwords = currentcontent.split(' ')
-    
     processTest()
 }
 
@@ -62,31 +59,22 @@ function processTest() {
         flag = false
         timer = setInterval(updateTimer, 1000);
     }
-
-
     // Add Event listener to get the key pressed while runnign the test
-
     input_test_area.addEventListener('keypress', keyEventHandler);
-    
 
 }
-function keyEventHandler(e) {
+function keyEventHandler(keyEvent) {
     listofcharacter = listofwords[wordcount].split('')
-    console.log("Current content" + currentcontent)
-    console.log("CHARACTER EXPECTED" + listofcharacter[charactercount])
-    console.log("Word expected" + listofwords[wordcount])
-    if (e.key == listofcharacter[charactercount]) {
+    if (keyEvent.key == listofcharacter[charactercount]) {
         scorecharacter++
-        joinwords += e.key
+        joinwords += keyEvent.key
         charactercount++
     }
     else {
-        if (e.key == " ") {
+        if (keyEvent.key == " ") {
             charactercount = 0
             if (joinwords == listofwords[wordcount]) {
                 scoreword++
-                console.log("score word" + scoreword)
-
             }
             joinwords = ""
             wordcount++
@@ -97,9 +85,10 @@ function keyEventHandler(e) {
         }
     }
     calculateScore()
-
 }
 
+
+// Calculat teh score on every word change 
 function calculateScore() {
     accuracy = Math.round((scorecharacter / totalcountofcharacter) * 100)
     accuracytext.value = accuracy
@@ -108,11 +97,10 @@ function calculateScore() {
     wordcounttext.value = wpm
     cpm = scorecharacter
     charactercounttext.value = cpm
-
 }
 
 function startGame() {
-
+    // This will disable backspace during the  test
     input_test_area.addEventListener('keydown', function (e) {
         if (e.keyCode == 8) {
             e.preventDefault();
@@ -120,7 +108,6 @@ function startGame() {
     })
     updateTestContent()
     input_test_area.disabled = false;
-
 }
 
 function resetGame() {
@@ -129,14 +116,12 @@ function resetGame() {
     resetValues();
     dummytext_div.style.visibility = 'hidden'
     startGame()
-
 }
 
 function resetValues() {
     wordcount = 0
     charactercount = 0
-    joinwords = "" 
-
+    joinwords = ""
     time_elapsed = 0
     scoreword = 0
     scorecharacter = 0
@@ -178,16 +163,12 @@ function finishTest() {
 
     // disable the input area
     input_test_area.disabled = true;
-
-    // show finishing text
     hide_text.style.visibility = 'visible'
     hide_text.innerText = "Click on Restart Button to begin the test"
     const previous_content = document.querySelectorAll('.testcontent');
     previous_content.forEach(element => {
         dummytext_div.removeChild(element)
     });
-
-    // display restart button
     reset_btn.style.display = "block";
     input_test_area.removeEventListener('keypress', keyEventHandler)
     alert("Test Finished")
