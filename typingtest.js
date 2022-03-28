@@ -1,10 +1,14 @@
-let TIME_LIMIT = 15;
+let TIME_LIMIT = 60;
 let time_left = TIME_LIMIT
 let time_elapsed = 0
 let current_test_content = 0;
 let scoreword = 0
 let scorecharacter = 0
 let errorcount = 0
+    // local variables used
+    let wordcount = 0
+    let charactercount = 0
+    let joinwords = "" 
 
 // Get the values of the DOM Elements
 let dummytext_div = document.getElementById('dummycontent')
@@ -18,7 +22,7 @@ let timer_text = document.getElementById('timertext')
 let hide_text = document.getElementById('hide')
 let reset_btn = document.getElementById('reset')
 let flag = true
-
+var listofwords
 //Content of the Dummy text that will be dispalyed for typing test
 let test_content = [
     "The Avengers are a fictional team of super heroes and the protagonists of the Marvel Cinematic Universe media franchise, based on the Marvel Comics team of the same name created by Stan Lee and Jack Kirby in 1963. Founded by S.H.I.E.L.D. Director Nick Fury, the team is a United States-based organization composed primarily of superpowered and gifted individuals, described as Earth's Mightiest Heroes, who are committed to the worlds protection from a variety of threats. The Avengers are depicted as operating in the state of New York; originally operating from the Avengers Tower in Midtown Manhattan and subsequently from the Avengers Compound in Upstate New York.",
@@ -30,7 +34,7 @@ let test_content = [
 
 // This function will load the dummy text for typing
 function updateTestContent() {
-
+    
     const previous_content = document.querySelectorAll('.testcontent');
     previous_content.forEach(element => {
         dummytext_div.removeChild(element)
@@ -48,6 +52,8 @@ function updateTestContent() {
     else
         current_test_content = 0
     reset_btn.style.display = 'block'
+    listofwords = currentcontent.split(' ')
+    
     processTest()
 }
 
@@ -56,42 +62,42 @@ function processTest() {
         flag = false
         timer = setInterval(updateTimer, 1000);
     }
-    // local variables used
-    let listofwords = currentcontent.split(' ')
-    let wordcount = 0
-    let charactercount = 0
-    let joinwords = ""
 
-    // Add Event listener to get teh key pressed while runnign the test
 
-    input_test_area.addEventListener('keypress', function (e) {
-        listofcharacter = listofwords[wordcount].split('')
-        console.log("Current content" + currentcontent)
-        console.log("CHARACTER EXPECTED" + listofcharacter[charactercount])
-        console.log("Word expected" + listofwords[wordcount])
-        if (e.key == listofcharacter[charactercount]) {
-            scorecharacter++
-            joinwords += e.key
-            charactercount++
+    // Add Event listener to get the key pressed while runnign the test
+
+    input_test_area.addEventListener('keypress', keyEventHandler);
+    
+
+}
+function keyEventHandler(e) {
+    listofcharacter = listofwords[wordcount].split('')
+    console.log("Current content" + currentcontent)
+    console.log("CHARACTER EXPECTED" + listofcharacter[charactercount])
+    console.log("Word expected" + listofwords[wordcount])
+    if (e.key == listofcharacter[charactercount]) {
+        scorecharacter++
+        joinwords += e.key
+        charactercount++
+    }
+    else {
+        if (e.key == " ") {
+            charactercount = 0
+            if (joinwords == listofwords[wordcount]) {
+                scoreword++
+                console.log("score word" + scoreword)
+
+            }
+            joinwords = ""
+            wordcount++
         }
         else {
-            if (e.key == " ") {
-                charactercount = 0
-                if (joinwords == listofwords[wordcount]) {
-                    scoreword++
-                    console.log("score word" + scoreword)
-
-                }
-                joinwords = ""
-                wordcount++
-            }
-            else {
-                errorcount++
-                charactercount++
-            }
+            errorcount++
+            charactercount++
         }
-        calculateScore()
-    });
+    }
+    calculateScore()
+
 }
 
 function calculateScore() {
@@ -127,6 +133,10 @@ function resetGame() {
 }
 
 function resetValues() {
+    wordcount = 0
+    charactercount = 0
+    joinwords = "" 
+
     time_elapsed = 0
     scoreword = 0
     scorecharacter = 0
@@ -179,6 +189,7 @@ function finishTest() {
 
     // display restart button
     reset_btn.style.display = "block";
+    input_test_area.removeEventListener('keypress', keyEventHandler)
     alert("Test Finished")
 }
 
