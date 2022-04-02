@@ -44,17 +44,21 @@ function updateTestContent() {
     newPara.className += "testcontent";
     newPara.innerText = currentcontent
     dummytext_div.appendChild(newPara);
-    dummytext_div.style.visibility = 'visible'
     if (current_test_content < test_content.length - 1)
         current_test_content++
     else
         current_test_content = 0
     reset_btn.style.display = 'block'
+
     listofwords = currentcontent.split(' ')
+    input_test_area.disabled = false;
+
     processTest()
 }
 
 function processTest() {
+    dummytext_div.style.visibility = 'visible'
+
     if (flag) {
         flag = false
         timer = setInterval(updateTimer, 1000);
@@ -64,6 +68,7 @@ function processTest() {
 
 }
 function keyEventHandler(keyEvent) {
+
     listofcharacter = listofwords[wordcount].split('')
     if (keyEvent.key == listofcharacter[charactercount]) {
         scorecharacter++
@@ -115,7 +120,20 @@ function resetGame() {
     input_test_area.value = ""
     resetValues();
     dummytext_div.style.visibility = 'hidden'
-    startGame()
+    input_test_area.addEventListener('keydown', function (e) {
+        if (e.keyCode == 8) {
+            e.preventDefault();
+        }
+        if (flag) {
+        updateTestContent()
+
+        }
+
+    })
+    input_test_area.disabled = false;
+
+
+
 }
 
 function resetValues() {
