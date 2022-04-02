@@ -8,6 +8,8 @@ let errorcount = 0
 let wordcount = 0
 let charactercount = 0
 let joinwords = ""
+let charactercountforchecking = 0
+
 
 // Get the values of the DOM Elements
 let dummytext_div = document.getElementById('dummycontent')
@@ -40,19 +42,27 @@ function updateTestContent() {
     currentcontent = test_content[current_test_content]
     totalcountofcharacter = currentcontent.split('').length
     hide_text.style.visibility = 'hidden';
-    newPara = document.createElement('p')
-    newPara.className += "testcontent";
-    newPara.innerText = currentcontent
-    dummytext_div.appendChild(newPara);
+    newdiv = document.createElement('div')
+    newdiv.className += "testcontent";
+    current_chars = currentcontent.split('')
+    console.log(current_chars)
+    divcount = 0
+    current_chars.forEach(char => {
+        newchar = document.createElement('div')
+        newchar.className += "testcharcontent";
+        newchar.id += "char" + divcount
+        divcount++
+        newchar.innerText = char
+        newdiv.appendChild(newchar)
+    })
+    dummytext_div.appendChild(newdiv);
     if (current_test_content < test_content.length - 1)
         current_test_content++
     else
         current_test_content = 0
     reset_btn.style.display = 'block'
-
     listofwords = currentcontent.split(' ')
     input_test_area.disabled = false;
-
     processTest()
 }
 
@@ -63,37 +73,42 @@ function processTest() {
         flag = false
         timer = setInterval(updateTimer, 1000);
     }
-    // Add Event listener to get the key pressed while runnign the test
+    // Add Event listener to get the key pressed while running the test
     input_test_area.addEventListener('keypress', keyEventHandler);
 
 }
 function keyEventHandler(keyEvent) {
 
     listofcharacter = listofwords[wordcount].split('')
-    if (keyEvent.key == listofcharacter[charactercount]) {
-        scorecharacter++
-        joinwords += keyEvent.key
-        charactercount++
-    }
-    else {
+    errorchar = document.getElementById("char" + charactercount)
+    console.log(errorchar.innerText + keyEvent.key + listofcharacter[charactercount])
+    if (keyEvent.key == current_chars[charactercount]) {
         if (keyEvent.key == " ") {
-            charactercount = 0
             if (joinwords == listofwords[wordcount]) {
                 scoreword++
             }
             joinwords = ""
-            wordcount++
         }
         else {
-            errorcount++
-            charactercount++
+            joinwords += keyEvent.key
         }
+        scorecharacter++
+        errorchar.style.backgroundColor = "green"
     }
+    else {
+        errorchar.style.backgroundColor = "red"
+        errorcount++
+    }
+    if (current_chars[charactercount] == " ") {
+        wordcount++
+    }
+    charactercount++
+    charactercountforchecking++
     calculateScore()
 }
 
 
-// Calculat teh score on every word change 
+// Calculat the score on every word change 
 function calculateScore() {
     accuracy = Math.round((scorecharacter / totalcountofcharacter) * 100)
     accuracytext.value = accuracy
@@ -124,16 +139,9 @@ function resetGame() {
         if (e.keyCode == 8) {
             e.preventDefault();
         }
-        if (flag) {
-        updateTestContent()
-
-        }
-
+        if (flag) { updateTestContent() }
     })
     input_test_area.disabled = false;
-
-
-
 }
 
 function resetValues() {
@@ -150,6 +158,7 @@ function resetValues() {
     accuracytext.value = 0
     wordcounttext.value = 0
     charactercounttext.value = 0
+    charactercountforchecking = 0
     timer_text.value = time_left + "s";
     error.value = 0
 }

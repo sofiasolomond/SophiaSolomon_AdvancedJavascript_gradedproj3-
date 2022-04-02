@@ -66,13 +66,13 @@ p {
 }
 
 #test_div {
-
     float: center;
     display: inline;
-
-
 }
 
+.testcharcontent {
+    display: inline;
+}
 #test_div > textarea{
     border: 0.5px solid blue;
     text-align: left;
